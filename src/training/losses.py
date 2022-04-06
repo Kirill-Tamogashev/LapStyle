@@ -29,8 +29,8 @@ class LapStyleLoss(nn.Module):
     def forward(
         self, 
         generated: List[Tensor], 
-        true_style: List[Tensor], 
         true_content: List[Tensor],
+        true_style: List[Tensor], 
     ) -> float:
      
         l_cnt, l_stl, l_m_v, l_per = 0, 0, 0, 0
