@@ -111,12 +111,11 @@ class Trainer:
                 descriminator_loss.backward()
                 self.descriminator.step()
                 
-                
-                
-                
-                
-                
-                   
+                if i % 30 == 0:
+                    print(
+                        f"{epoch = }, {drafting_loss = }, {total_revision_loss = }, {descriminator_loss = }"
+                    )
+                                  
         
 def tensor_resample(tensor, dst_size, mode='bilinear'):
     return F.interpolate(tensor, dst_size, mode=mode, align_corners=False)
