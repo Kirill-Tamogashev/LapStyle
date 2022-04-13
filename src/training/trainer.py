@@ -12,11 +12,13 @@ from src.model.revision_network import RevisionNetwork
 
 
 class Trainer:
-    def __init__(self):
+    def __init__(self, device):
+        
+        self.device = device
         #### models ####
-        self.drafting_network = DraftingNetwork()
-        self.revision_network = RevisionNetwork()
-        self.descriminator = Descriminator()
+        self.drafting_network = DraftingNetwork().to(device)
+        self.revision_network = RevisionNetwork().to(device)
+        self.descriminator = Descriminator().to(device)
         
         #### optimizers ####
         self.optim_drafting = optim.Adam(self.drafting_network.parameters())
@@ -37,7 +39,7 @@ class Trainer:
         for epoch in range(n_epochs):
             for i, batch in enumerate(self.dataloader):
                 content, style = batch["content"], batch["style"]
-                content, style = content.to(device), style.to(device)
+                content, style = content.to(self.device), style.to(self.device)
                 
                 
                 style_down = F.interpolate(
