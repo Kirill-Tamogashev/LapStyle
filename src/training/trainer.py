@@ -115,7 +115,7 @@ class Trainer:
                 
                 if i % 30 == 0:
                     print(
-                        f"{epoch = }, {drafting_loss = }, {total_revision_loss = }, {descriminator_loss = }"
+                        f"epoch: {epoch}, drafting_loss: {drafting_loss}, total_revision_loss: {total_revision_loss}, descriminator_loss: {descriminator_loss}"
                     )
                             
     def save_checkpoint(self):
