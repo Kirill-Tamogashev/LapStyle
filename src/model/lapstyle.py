@@ -1,3 +1,5 @@
+import os
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -21,9 +23,13 @@ def laplacian(x):
 class LapStyle(nn.Module):
     def __init__(self):
         super().__init__()
+        self.path_to_model_checkpoint = ""
         
         self.drafting = DraftingNetwork()
         self.revision = RevisionNetwork()
+        
+        if os.path.exists(self.path_to_model_checkpoint):
+            initialize_model()
         
     def forward(self, content, style):
         
@@ -48,4 +54,10 @@ class LapStyle(nn.Module):
         """
         h, w = revised.shape[2], revised.shape[3]
         return tensor_resample(drafted, (h, w), mode='bilinear') + revised
+    
+    def initialize_model(self):
+        state_dict = torch.load(self.path_to_model_checkpoint)
+        self.drafting.load_state_dict(state_dict["drafting"])
+        self.revision.load_state_dict(state_dict["revision"])
+
     

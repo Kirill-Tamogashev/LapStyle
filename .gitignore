@@ -1,2 +1,7 @@
 .DS_Store
 .vscode/
+**/__pycache__
+
+# exclude content and style images
+data/content/*
+data/style/*

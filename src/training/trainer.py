@@ -36,7 +36,7 @@ class Trainer:
     def train(self):
         for epoch in range(n_epochs):
             for i, batch in enumerate(self.dataloader):
-                content, style = batch
+                content, style = batch["content"], batch["style"]
                 content, style = content.to(device), style.to(device)
                 
                 
@@ -115,8 +115,11 @@ class Trainer:
                     print(
                         f"{epoch = }, {drafting_loss = }, {total_revision_loss = }, {descriminator_loss = }"
                     )
-                                  
-        
+                            
+    def save_checkpoint(self):
+        model_dir = "model_checkpoints"
+        torch.save({})                      
+
 def tensor_resample(tensor, dst_size, mode='bilinear'):
     return F.interpolate(tensor, dst_size, mode=mode, align_corners=False)
 
